@@ -65,7 +65,7 @@ export default function Home() {
               RAMVO · DIGITAL ENGINEERING
             </div>
             <h1>
-              رموو؛ فراتر از <span className="headline-outline">کدنویسی.</span>
+              رَمْوو،  فراتر از <span className="headline-outline">کدنویسی.</span>
               <br />
               مهندسیِ{" "}
               <span className="gold-word">

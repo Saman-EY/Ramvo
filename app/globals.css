@@ -163,31 +163,32 @@
 }
 :root,
 .dark {
+  color-scheme: dark;
   --radius: 0.5rem;
-  --background: oklch(0.135 0.012 260);
-  --foreground: oklch(0.94 0.009 85);
-  --card: oklch(0.174 0.014 260);
+  --background: oklch(0.13 0.022 255);
+  --foreground: oklch(0.95 0.012 88);
+  --card: oklch(0.175 0.024 255);
   --card-foreground: var(--foreground);
-  --popover: oklch(0.174 0.014 260);
+  --popover: oklch(0.19 0.026 255);
   --popover-foreground: var(--foreground);
   --primary: oklch(0.79 0.115 83);
   --primary-foreground: oklch(0.17 0.02 80);
-  --secondary: oklch(0.235 0.014 260);
+  --secondary: oklch(0.235 0.026 255);
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.2 0.016 260);
-  --muted-foreground: oklch(0.63 0.014 260);
-  --accent: oklch(0.25 0.021 155);
+  --muted: oklch(0.205 0.023 255);
+  --muted-foreground: oklch(0.69 0.018 255);
+  --accent: oklch(0.25 0.035 155);
   --accent-foreground: var(--foreground);
-  --border: oklch(0.3 0.012 260 / 60%);
-  --input: oklch(0.3 0.012 260);
+  --border: oklch(0.36 0.022 255 / 58%);
+  --input: oklch(0.32 0.025 255);
   --ring: var(--primary);
-  --leaf: oklch(0.72 0.115 158);
+  --leaf: oklch(0.75 0.13 158);
   --gold: var(--primary);
   --code-violet: oklch(0.76 0.12 303);
   --code-blue: oklch(0.76 0.12 236);
   --code-red: oklch(0.65 0.16 25);
-  --hero-light: radial-gradient(ellipse at 18% 38%, oklch(0.3 0.067 159 / 17%), transparent 49%);
-  --card-glow: 0 12px 60px oklch(0.06 0.01 260 / 25%);
+  --hero-light: radial-gradient(ellipse at 18% 38%, oklch(0.34 0.075 159 / 19%), transparent 52%), radial-gradient(ellipse at 84% 4%, oklch(0.3 0.09 245 / 16%), transparent 38%);
+  --card-glow: 0 18px 70px oklch(0.055 0.025 255 / 42%);
 }
 html {
   scroll-behavior: smooth;
@@ -196,6 +197,8 @@ html {
 body {
   font-family: var(--font-sans);
   letter-spacing: 0;
+  background-image: radial-gradient(ellipse at 50% -30%, oklch(0.24 0.045 255 / 35%), transparent 55%);
+  background-attachment: fixed;
 }
 button,
 input,
@@ -212,11 +215,13 @@ a {
   margin-inline: auto;
 }
 .site-header {
-  height: 100px;
+  height: 88px;
   border-bottom: 1px solid var(--border);
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 20;
-  background: var(--background);
+  background: color-mix(in oklch, var(--background) 84%, transparent);
+  backdrop-filter: blur(18px);
 }
 .header-inner {
   height: 100%;
@@ -769,7 +774,7 @@ a {
 .service-card {
   border: 1px solid var(--border);
   border-radius: 7px;
-  background: linear-gradient(145deg, color-mix(in oklch, var(--foreground) 3%, transparent), transparent);
+  background: linear-gradient(145deg, color-mix(in oklch, var(--card) 94%, white 6%), color-mix(in oklch, var(--background) 86%, transparent));
   padding: 23px 20px;
   transition:
     border-color 0.25s,
@@ -893,7 +898,14 @@ a {
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
-  background: var(--card);
+  background: linear-gradient(155deg, color-mix(in oklch, var(--card) 96%, white 4%), var(--card));
+  box-shadow: 0 14px 45px oklch(0.055 0.02 255 / 20%);
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in oklch, var(--primary) 42%, var(--border));
+  box-shadow: 0 22px 55px oklch(0.055 0.02 255 / 34%);
 }
 .project-image {
   position: relative;

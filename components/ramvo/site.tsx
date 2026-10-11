@@ -25,11 +25,13 @@ export function Brand() {
   return (
     <Link href="/" className="brand" aria-label="رموو، صفحه اصلی">
       <span className="logo-crop">
-        <Image src="/images/ramvo-logo.svg" alt="لوگوی رموو" width={110} height={110} unoptimized />
+        <Image src="/images/ramvo-logo.jpg" alt="لوگوی رموو" width={110} height={110} />
+        sdwd
       </span>
       <span>
         <b dir="ltr">
-          ramvo<span className="text-primary">.</span>
+          Ramvo
+          {/* <span className="text-primary">.</span> */}
         </b>
         <small>مهندسی ایده‌های شما</small>
       </span>
@@ -52,6 +54,7 @@ export function Footer() {
           </div>
           <div className="footer-links">
             <h3>مسیرهای رموو</h3>
+
             <Link href="/">صفحه اصلی</Link>
             <Link href="/projects">پروژه‌ها</Link>
             <Link href="/packages">پکیج‌ها</Link>
