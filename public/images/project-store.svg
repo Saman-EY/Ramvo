@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" width="1536" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#161210"/>
+      <stop offset="1" stop-color="#241C16"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#26201A"/>
+      <stop offset="1" stop-color="#1B1712"/>
+    </linearGradient>
+  </defs>
+  <rect width="1536" height="1024" fill="url(#bg)"/>
+  <g stroke="#FFFFFF" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="256" x2="1536" y2="256"/>
+    <line x1="0" y1="512" x2="1536" y2="512"/>
+    <line x1="0" y1="768" x2="1536" y2="768"/>
+    <line x1="384" y1="0" x2="384" y2="1024"/>
+    <line x1="768" y1="0" x2="768" y2="1024"/>
+    <line x1="1152" y1="0" x2="1152" y2="1024"/>
+  </g>
+  <rect x="140" y="140" width="1256" height="744" rx="18" fill="#12100D" stroke="#332A22" stroke-width="2"/>
+  <rect x="140" y="140" width="1256" height="76" rx="18" fill="#1A1611"/>
+  <rect x="190" y="168" width="150" height="20" rx="10" fill="#E8B84B"/>
+  <g fill="#3A322A">
+    <rect x="1150" y="170" width="70" height="16" rx="8"/>
+    <rect x="1240" y="170" width="70" height="16" rx="8"/>
+    <rect x="1330" y="170" width="40" height="16" rx="8"/>
+  </g>
+  <g>
+    <rect x="190" y="280" width="380" height="440" rx="16" fill="url(#card)" stroke="#332A22"/>
+    <rect x="610" y="280" width="380" height="440" rx="16" fill="url(#card)" stroke="#332A22"/>
+    <rect x="1030" y="280" width="310" height="440" rx="16" fill="url(#card)" stroke="#332A22"/>
+  </g>
+  <g>
+    <rect x="220" y="310" width="320" height="220" rx="12" fill="#221C16"/>
+    <rect x="640" y="310" width="320" height="220" rx="12" fill="#221C16"/>
+    <rect x="1060" y="310" width="250" height="220" rx="12" fill="#221C16"/>
+    <circle cx="380" cy="420" r="70" fill="#2E261E"/>
+    <rect x="640" y="440" width="320" height="90" rx="10" fill="#2E261E"/>
+    <rect x="1060" y="440" width="250" height="90" rx="10" fill="#2E261E"/>
+  </g>
+  <g fill="#E8B84B">
+    <rect x="220" y="570" width="140" height="16" rx="8"/>
+    <rect x="640" y="570" width="120" height="16" rx="8"/>
+    <rect x="1060" y="570" width="110" height="16" rx="8"/>
+  </g>
+  <g fill="#4A4038">
+    <rect x="220" y="606" width="260" height="12" rx="6"/>
+    <rect x="220" y="634" width="200" height="12" rx="6"/>
+    <rect x="640" y="606" width="270" height="12" rx="6"/>
+    <rect x="640" y="634" width="210" height="12" rx="6"/>
+    <rect x="1060" y="606" width="200" height="12" rx="6"/>
+    <rect x="1060" y="634" width="160" height="12" rx="6"/>
+  </g>
+  <g>
+    <rect x="220" y="672" width="120" height="32" rx="16" fill="#E8B84B"/>
+    <rect x="640" y="672" width="120" height="32" rx="16" fill="#3A322A"/>
+    <rect x="1060" y="672" width="120" height="32" rx="16" fill="#3A322A"/>
+  </g>
+  <text x="1396" y="860" text-anchor="end" font-family="monospace" font-size="30" fill="#4A4038">HOUSEN · STOREFRONT</text>
+</svg>
