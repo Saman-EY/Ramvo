@@ -80,7 +80,8 @@ export function Editor() {
                 <em>06</em>
                 <span>
                   {" "}
-                  stack: [<span className="code-green">&apos;React&apos;</span>, <span className="code-green">&apos;Next.js&apos;</span>],
+                  stack: [<span className="code-green">&apos;React&apos;</span>,{" "}
+                  <span className="code-green">&apos;Next.js&apos;</span>],
                 </span>
               </div>
               <div>
@@ -205,7 +206,18 @@ export function Marquee() {
       <div className="marquee-track">
         {[0, 1].map((n) => (
           <div className="marquee-group" key={n} aria-hidden={n === 1}>
-            {["React", "Next.js", "TypeScript", "Node.js", "Python", "Docker", "PostgreSQL", "Figma"].map((name) => (
+            {[
+              "React",
+              "Next.js",
+              "TypeScript",
+              "Node.js",
+              "Python",
+              "Django",
+              "Docker",
+              "PostgreSQL",
+              "Express.js",
+              "Nest.js",
+            ].map((name) => (
               <span key={name}>
                 <CodeXml size={23} />
                 {name}
