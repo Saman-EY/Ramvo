@@ -1,38 +1,65 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import { useForm, type FieldErrors, type Resolver } from "react-hook-form";
 import { ArrowUpLeft, CircleCheckBig, LoaderCircle, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { consultationSchema } from "@/lib/consultation-schema";
+import type { ConsultationInput } from "@/lib/consultation-schema";
 import { submitConsultation } from "@/lib/consultation.functions";
 
-export function ConsultationForm() {
-  const [busy, setBusy] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+type ConsultationFormValues = {
+  name: string;
+  phone: string;
+  project_type: ConsultationInput["project_type"];
+  description: string;
+};
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const parsed = consultationSchema.safeParse(Object.fromEntries(new FormData(form)));
-    if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message || "اطلاعات را بررسی کنید.");
-      return;
+const consultationResolver: Resolver<ConsultationFormValues, unknown, ConsultationInput> = async (values) => {
+  const parsed = consultationSchema.safeParse(values);
+
+  if (parsed.success) {
+    return { values: parsed.data, errors: {} };
+  }
+
+  const errors: FieldErrors<ConsultationFormValues> = {};
+  for (const issue of parsed.error.issues) {
+    const field = issue.path[0];
+    if (typeof field === "string" && !errors[field]) {
+      errors[field as keyof ConsultationFormValues] = { type: issue.code, message: issue.message };
     }
-    setBusy(true);
-    setError("");
+  }
+
+  return { values: {}, errors };
+};
+
+export function ConsultationForm() {
+  const [success, setSuccess] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<ConsultationFormValues, unknown, ConsultationInput>({
+    resolver: consultationResolver,
+    defaultValues: { project_type: "web" },
+  });
+
+  async function onSubmit(values: ConsultationInput) {
     try {
-      const result = await submitConsultation(parsed.data);
+      const result = await submitConsultation(values);
       if (!result.ok) {
-        setError(result.error);
+        setError("root.server", { type: "server", message: result.error });
         return;
       }
       setSuccess(true);
-      form.reset();
+      reset();
     } catch {
-      setError("ثبت درخواست انجام نشد. دوباره تلاش کنید.");
-    } finally {
-      setBusy(false);
+      setError("root.server", {
+        type: "server",
+        message: "ثبت درخواست انجام نشد. دوباره تلاش کنید.",
+      });
     }
   }
 
@@ -46,16 +73,17 @@ export function ConsultationForm() {
       </Button>
     </div>
   ) : (
-    <form className="consultation-form" onSubmit={handleSubmit} noValidate>
+    <form className="consultation-form" onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="form-row">
         <label>
           نام و نام خانوادگی
-          <input name="name" placeholder="چطور صدایتان کنیم؟" maxLength={100} autoComplete="name" required />
+          <input {...register("name")} placeholder="چطور صدایتان کنیم؟" maxLength={100} autoComplete="name" required />
+          {errors.name && <span className="form-error" role="alert">{errors.name.message}</span>}
         </label>
         <label>
           شماره تماس
           <input
-            name="phone"
+            {...register("phone")}
             placeholder="۰۹۱۲۳۴۵۶۷۸۹"
             dir="ltr"
             maxLength={11}
@@ -63,14 +91,15 @@ export function ConsultationForm() {
             autoComplete="tel"
             required
           />
+          {errors.phone && <span className="form-error" role="alert">{errors.phone.message}</span>}
         </label>
       </div>
       <label>
         چه چیزی می‌خواهید بسازیم؟
-        <select name="project_type" defaultValue="web">
-          <option value="web">وب‌سایت / وب‌اپلیکیشن اختصاصی</option>
-          <option value="backend">معماری سیستم و بک‌اند</option>
-          <option value="design">طراحی رابط کاربری</option>
+        <select {...register("project_type")}>
+          <option value="web">وب‌سایت شخصی</option>
+          <option value="web-shop">وب‌سایت فروشگاهی</option>
+          <option value="web-app">وب‌اپلیکیشن</option>
           <option value="optimization">بهینه‌سازی و بازنویسی</option>
           <option value="other">سایر پروژه‌ها</option>
         </select>
@@ -78,22 +107,23 @@ export function ConsultationForm() {
       <label>
         کمی از ایده‌تان بگویید
         <textarea
-          name="description"
+          {...register("description")}
           rows={4}
           maxLength={2000}
           placeholder="درباره پروژه، نیازها و هدف‌هایتان بنویسید..."
           required
         />
+        {errors.description && <span className="form-error" role="alert">{errors.description.message}</span>}
       </label>
-      {error && (
+      {errors.root?.server && (
         <p className="form-error" role="alert">
-          {error}
+          {errors.root.server.message}
         </p>
       )}
       <div className="form-submit">
-        <Button disabled={busy} type="submit" size="lg">
-          {busy ? <LoaderCircle className="animate-spin" /> : <ArrowUpLeft />}
-          {busy ? "در حال ثبت..." : "ارسال درخواست مشاوره"}
+        <Button disabled={isSubmitting} type="submit" size="lg">
+          {isSubmitting ? <LoaderCircle className="animate-spin" /> : <ArrowUpLeft />}
+          {isSubmitting ? "در حال ثبت..." : "ارسال درخواست مشاوره"}
         </Button>
         <span>
           <ShieldCheck size={15} />
