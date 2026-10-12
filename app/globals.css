@@ -1036,6 +1036,64 @@ a {
   gap: 9px;
   font-size: 11px;
 }
+.consultation-form .required-marker {
+  color: red;
+  font-weight: 700;
+}
+.consultation-date-field {
+  min-width: 0;
+}
+.consultation-date-field > span:first-child {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 11px;
+}
+.consultation-date-field .rmdp-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  outline: none;
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 11px;
+}
+.consultation-date-field .rmdp-input:focus {
+  border-color: var(--primary);
+}
+.rmdp-wrapper.consultation-date-calendar {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #0b111b;
+  color: #e5e7eb;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 45%);
+}
+.consultation-date-calendar .rmdp-header-values,
+.consultation-date-calendar .rmdp-week-day,
+.consultation-date-calendar .rmdp-day:not(.rmdp-deactive) {
+  color: #e5e7eb;
+}
+.consultation-date-calendar .rmdp-day.rmdp-deactive,
+.consultation-date-calendar .rmdp-day.rmdp-disabled {
+  color: #64748b;
+}
+.consultation-date-calendar .rmdp-day.rmdp-today span {
+  background: #1e293b;
+  color: #93c5fd;
+}
+.consultation-date-calendar .rmdp-day.rmdp-selected span:not(.highlight) {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 2px 8px rgb(37 99 235 / 40%);
+}
+.consultation-date-calendar .rmdp-day:not(.rmdp-day-hidden) span:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+.consultation-date-calendar .rmdp-arrow {
+  border-color: #93c5fd;
+}
 .consultation-form input,
 .consultation-form select,
 .consultation-form textarea,

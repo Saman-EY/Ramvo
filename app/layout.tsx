@@ -4,6 +4,9 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/ramvo/header";
 import { Footer } from "@/components/ramvo/site";
+import { Providers } from "@/lib/Providers";
+import { Toaster } from "react-hot-toast";
+import NextTopLoader from "nextjs-toploader";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic", "latin"],
@@ -34,17 +37,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="fa"
-      dir="rtl"
-      className={cn("dark", "antialiased", vazirmatn.variable, jetbrainsMono.variable)}
-    >
+    <html lang="fa" dir="rtl" className={cn("dark", "antialiased", vazirmatn.variable, jetbrainsMono.variable)}>
       <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-        <Footer />
+        <NextTopLoader color="#ffc23f" height={3} crawl={true} speed={500} showSpinner={false} />
+
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
+        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       </body>
     </html>
   );
 }
-
