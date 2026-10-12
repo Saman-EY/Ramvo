@@ -1,4 +1,5 @@
 import { Control, Controller, type FieldPath, type FieldValues } from "react-hook-form";
+import DateObject from "react-date-object";
 import persian from "react-date-object/calendars/persian";
 import gorgian_en from "react-date-object/locales/gregorian_en";
 import persian_fa from "react-date-object/locales/persian_fa"
@@ -43,6 +44,8 @@ function DatePickerInput<
             format="YYYY/MM/DD"
             calendar={persian}
             locale={persian_fa}
+            minDate={new DateObject({ calendar: persian }).setHour(0).setMinute(0).setSecond(0)}
+            editable={false}
             // locale={persian_fa}
             calendarPosition="bottom-right"
             className="consultation-date-calendar"
