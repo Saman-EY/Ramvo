@@ -34,7 +34,8 @@ export const consultationSchema = z.object({
     .string({ error: "تاریخ شمسی را به درستی وارد کنید" })
     .trim()
     .refine(isValidJalaliDate, "تاریخ شمسی را به‌شکل ۱۴۰۵/۰۱/۱۵ وارد کنید."),
-  slot: z.enum(["9 تا 12", "12 تا 15", "15 تا 18"]),
+  slot: z.enum(["09:00-12:00", "12:00-15:00", "15:00-18:00"]),
+  
   subject: z.enum(["web", "web-shop", "web-app", "optimization", "other"]),
   description: z
     .string()
@@ -44,3 +45,4 @@ export const consultationSchema = z.object({
 });
 
 export type ConsultationInput = z.infer<typeof consultationSchema>;
+

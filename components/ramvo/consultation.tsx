@@ -54,15 +54,13 @@ export function ConsultationForm() {
     formState: { errors },
   } = useForm<ConsultationFormValues, unknown, ConsultationInput>({
     resolver: consultationResolver,
-    defaultValues: { date: "", subject: "web", slot: "9 تا 12" },
+    defaultValues: { date: "", subject: "web", slot: "09:00-12:00" },
   });
 
   const { mutate, isPending } = useSubmitConsulting();
 
   async function onSubmit(values: ConsultationInput) {
     const { first_name, last_name, phone, date, slot, subject, description } = values;
-
-    return console.log("**", date)
 
     mutate(
       { first_name, last_name, phone, date, slot, subject, description },
@@ -80,16 +78,14 @@ export function ConsultationForm() {
     );
   }
 
-  console.log(watch());
-
   return success ? (
     <div className="form-success" role="status">
       <CircleCheckBig size={48} />
       <h3>درخواست شما ثبت شد.</h3>
       <p>اطلاعات پروژه با موفقیت ذخیره شد. از اعتماد شما به رموو ممنونیم.</p>
-      <Button variant="outline" onClick={() => setSuccess(false)}>
+      {/* <Button variant="outline" onClick={() => setSuccess(false)}>
         ثبت درخواست دیگر
-      </Button>
+      </Button> */}
     </div>
   ) : (
     <form className="consultation-form" onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -172,9 +168,9 @@ export function ConsultationForm() {
             بازه زمانی مناسب<span className="required-marker"> *</span>
           </span>
           <select {...register("slot")}>
-            <option value="9 تا 12">۹ تا ۱۲</option>
-            <option value="12 تا 15">۱۲ تا ۱۵</option>
-            <option value="15 تا 18">۱۵ تا ۱۸</option>
+            <option value="09:00-12:00">۹ تا ۱۲</option>
+            <option value="12:00-15:00">۱۲ تا ۱۵</option>
+            <option value="15:00-18:00">۱۵ تا ۱۸</option>
           </select>
           {errors.slot && (
             <span className="form-error" role="alert">
