@@ -36,18 +36,18 @@ function DatePickerInput<
       name={name}
       rules={required ? { required: "این فیلد الزامی است." } : undefined}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <div className={`consultation-date-field ${containerClass ?? ""}`}>
+        <div className={`min-w-0 ${containerClass ?? ""}`}>
           {label && (
-            <span className="text-xs font-medium block mb-2">
+            <span className="mb-2 block text-sm font-medium">
               {label}
-              {required && <span className="required-marker"> *</span>}
+              {required && <span className="font-bold text-red-500"> *</span>}
             </span>
           )}
           <DatePicker
             value={typeof value === "string" ? value.replaceAll("-", "/") : ""}
             onChange={(date) => onChange(date?.isValid ? normalizeDigits(date.format("YYYY-MM-DD")) : "")}
-            style={{ minHeight: "40px", width: "100%" }}
-            containerStyle={{ width: "100%" }}
+            inputClass="min-h-10 w-full rounded-[5px] border border-border bg-card p-3 text-sm text-foreground outline-none transition-colors focus:border-primary"
+            containerClassName="w-full"
             format="YYYY/MM/DD"
             calendar={persian}
             locale={persian_fa}
@@ -58,7 +58,7 @@ function DatePickerInput<
             className="consultation-date-calendar"
           />
           {error && (
-            <span className="form-error" role="alert">
+            <span className="mt-1 block text-[13px] text-destructive" role="alert">
               {error.message || "تاریخ معتبر وارد کنید."}
             </span>
           )}

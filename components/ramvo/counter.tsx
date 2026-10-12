@@ -31,12 +31,12 @@ export function Counter({ value, label, suffix }: { value: number; label: string
     };
   }, [value]);
   return (
-    <div ref={ref} className="stat">
-      <b>
+    <div ref={ref} className="border-r border-border pr-6 max-[800px]:pr-3">
+      <b className="flex items-center gap-1 text-[37px] font-semibold max-[800px]:text-3xl">
         <span>{new Intl.NumberFormat("fa").format(count)}</span>
-        <i>{suffix}</i>
+        <i className="text-[27px] text-primary not-italic">{suffix}</i>
       </b>
-      <span>{label}</span>
+      <span className="text-[13px] text-muted-foreground">{label}</span>
     </div>
   );
 }

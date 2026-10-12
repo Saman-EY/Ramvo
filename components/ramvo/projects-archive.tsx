@@ -13,23 +13,23 @@ export function ProjectsArchive() {
     (p) => (category === "همه پروژه‌ها" || p.category === category) && (stack === "همه فناوری‌ها" || p.tags.includes(stack)),
   );
   return (
-    <main className="container archive-page">
+    <main className="mx-auto w-[calc(100%-36px)] max-w-[1320px] py-[65px] pb-[85px] min-[501px]:w-[calc(100%-64px)] min-[1101px]:w-[calc(100%-112px)] max-[800px]:py-[45px] max-[800px]:pb-[45px]">
       <SectionTitle
         eyebrow="RAMVO / SELECTED WORK"
         title="ایده‌هایی که به تجربه تبدیل شدند."
         description="نمونه‌های نمایشی از طراحی، توسعه و مهندسی محصولات دیجیتال."
       />
-      <div className="project-filters">
-        <div className="filter-tabs">
+      <div className="mt-9 flex justify-between gap-5 border-y border-border py-5 max-[800px]:flex-col">
+        <div className="flex flex-wrap gap-1">
           {["همه پروژه‌ها", "وب‌اپلیکیشن", "فروشگاه آنلاین", "بک‌اند و زیرساخت", "طراحی رابط کاربری"].map((c) => (
             <Button variant={category === c ? "default" : "ghost"} key={c} onClick={() => setCategory(c)}>
               {c}
             </Button>
           ))}
         </div>
-        <label className="stack-select">
+        <label className="flex min-w-40 items-center gap-2 text-sm text-muted-foreground">
           <SlidersHorizontal size={17} />
-          <select aria-label="فیلتر فناوری" value={stack} onChange={(e) => setStack(e.target.value)}>
+          <select className="min-w-0 rounded border border-border bg-card p-2 text-foreground" aria-label="فیلتر فناوری" value={stack} onChange={(e) => setStack(e.target.value)}>
             {["همه فناوری‌ها", "React", "Next.js", "TypeScript", "Node.js", "Python", "Docker", "PostgreSQL", "Figma"].map(
               (s) => (
                 <option key={s}>{s}</option>
@@ -38,14 +38,15 @@ export function ProjectsArchive() {
           </select>
         </label>
       </div>
-      <div className="result-count">{new Intl.NumberFormat("fa").format(items.length)} پروژه</div>
+      <div className="my-[23px] text-sm text-muted-foreground">{new Intl.NumberFormat("fa").format(items.length)} پروژه</div>
       {items.length ? (
         <ProjectGrid items={items} />
       ) : (
-        <div className="empty-results">
+        <div className="py-[75px] text-center">
           <h3>پروژه‌ای با این ترکیب پیدا نشد.</h3>
           <Button
             variant="outline"
+            className="mt-[22px]"
             onClick={() => {
               setCategory("همه پروژه‌ها");
               setStack("همه فناوری‌ها");

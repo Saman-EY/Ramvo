@@ -37,8 +37,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fa" dir="rtl" className={cn("dark", "antialiased", vazirmatn.variable, jetbrainsMono.variable)}>
-      <body className="min-h-full flex flex-col">
+    <html lang="fa" dir="rtl" className={cn("dark", "antialiased scroll-smooth [scroll-padding-top:100px]", vazirmatn.variable, jetbrainsMono.variable)}>
+      <body className="flex min-h-full flex-col bg-[radial-gradient(ellipse_at_50%_-30%,oklch(0.24_0.045_255_/_35%),transparent_55%)] bg-fixed">
         <NextTopLoader color="#ffc23f" height={3} crawl={true} speed={500} showSpinner={false} />
 
         <Providers>

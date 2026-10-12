@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check, Plus, ArrowUpLeft, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SectionTitle } from "@/components/ramvo/site";
 
 export const metadata: Metadata = {
   title: "پکیج‌ها و تعرفه‌ها | رموو",
@@ -127,13 +126,20 @@ const packages: Pkg[] = [
 
 export default function Packages() {
   return (
-    <section className="section packages-page">
-      <div className="container">
-        <SectionTitle
-          eyebrow="پکیج‌ها و تعرفه‌ها"
-          title="مسیر مناسب پروژه‌تان را انتخاب کنید."
-          description="از وب‌سایت آماده شروع کنید یا برای ساخت محصولی متناسب با فرایند کسب‌وکارتان مشاوره بگیرید."
-        />
+    <section className="py-[77px] max-[800px]:py-12">
+      <div className="mx-auto w-[calc(100%-36px)] max-w-[1320px] min-[501px]:w-[calc(100%-64px)] min-[1101px]:w-[calc(100%-112px)]">
+        <header className="mb-8">
+          <span className="flex items-center gap-2 text-xs text-primary">
+            <i className="size-[5px] shrink-0 rounded-full bg-primary" />
+            پکیج‌ها و تعرفه‌ها
+          </span>
+          <h1 className="mt-[9px] text-[29px] leading-[1.8] font-extrabold max-[800px]:text-[26px] max-[500px]:text-[23px]">
+            مسیر مناسب پروژه‌تان را انتخاب کنید.
+          </h1>
+          <p className="mt-2 text-sm leading-[2.1] text-muted-foreground">
+            از وب‌سایت آماده شروع کنید یا برای ساخت محصولی متناسب با فرایند کسب‌وکارتان مشاوره بگیرید.
+          </p>
+        </header>
         <div className="mt-12 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">
           {packages.map((p) => (
             <article

@@ -21,6 +21,9 @@ type ConsultationFormValues = {
   description: string;
 };
 
+const fieldClass =
+  "w-full min-w-0 rounded-[5px] border border-border bg-card p-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-primary max-[500px]:px-[9px]";
+
 const consultationResolver: Resolver<ConsultationFormValues, unknown, ConsultationInput> = async (values) => {
   const parsed = consultationSchema.safeParse(values);
 
@@ -79,33 +82,34 @@ export function ConsultationForm() {
   }
 
   return success ? (
-    <div className="form-success" role="status">
+    <div className="flex min-h-[360px] flex-col items-center justify-center gap-[19px] text-center" role="status">
       <CircleCheckBig size={48} />
-      <h3>درخواست شما ثبت شد.</h3>
-      <p>اطلاعات پروژه با موفقیت ذخیره شد. از اعتماد شما به رموو ممنونیم.</p>
+      <h3 className="text-[23px] font-bold">درخواست شما ثبت شد.</h3>
+      <p className="text-[15px] leading-8 text-muted-foreground">اطلاعات پروژه با موفقیت ذخیره شد. از اعتماد شما به رموو ممنونیم.</p>
       {/* <Button variant="outline" onClick={() => setSuccess(false)}>
         ثبت درخواست دیگر
       </Button> */}
     </div>
   ) : (
-    <form className="consultation-form" onSubmit={handleSubmit(onSubmit)} noValidate>
-      <div className="form-row">
-        <label>
+    <form className="flex flex-col gap-[18px]" onSubmit={handleSubmit(onSubmit)} noValidate>
+      <div className="grid grid-cols-2 gap-4 max-[500px]:gap-3">
+        <label className="flex flex-col gap-[9px] text-sm">
           <span>
-            نام<span className="required-marker"> *</span>
+            نام<span className="font-bold text-red-500"> *</span>
           </span>
-          <input {...register("first_name")} placeholder="نام خود را وارد کنید" maxLength={100} autoComplete="name" required />
+          <input className="w-full min-w-0 rounded-[5px] border border-border bg-card p-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/65 focus:border-primary max-[500px]:px-[9px]" {...register("first_name")} placeholder="نام خود را وارد کنید" maxLength={100} autoComplete="name" required />
           {errors.first_name && (
-            <span className="form-error" role="alert">
+            <span className="text-[13px] text-destructive" role="alert">
               {errors.first_name.message}
             </span>
           )}
         </label>
-        <label>
+        <label className="flex flex-col gap-[9px] text-sm">
           <span>
-            نام خانوادگی<span className="required-marker"> *</span>
+            نام خانوادگی<span className="font-bold text-red-500"> *</span>
           </span>
           <input
+            className={fieldClass}
             {...register("last_name")}
             placeholder="نام خانوادگی خود را وارد کنید"
             maxLength={100}
@@ -113,18 +117,18 @@ export function ConsultationForm() {
             required
           />
           {errors.last_name && (
-            <span className="form-error" role="alert">
+            <span className="text-[13px] text-destructive" role="alert">
               {errors.last_name.message}
             </span>
           )}
         </label>
       </div>
-      <div className="form-row">
-        <label>
+      <div className="grid grid-cols-2 gap-4 max-[500px]:gap-3">
+        <label className="flex flex-col gap-[9px] text-sm">
           <span>
-            چه چیزی می‌خواهید بسازیم؟<span className="required-marker"> *</span>
+            چه چیزی می‌خواهید بسازیم؟<span className="font-bold text-red-500"> *</span>
           </span>
-          <select {...register("subject")}>
+          <select className={fieldClass} {...register("subject")}>
             <option value="web">وب‌سایت شخصی</option>
             <option value="web-shop">وب‌سایت فروشگاهی</option>
             <option value="web-app">وب‌اپلیکیشن</option>
@@ -133,11 +137,12 @@ export function ConsultationForm() {
           </select>
         </label>
 
-        <label>
+        <label className="flex flex-col gap-[9px] text-sm">
           <span>
-            شماره تماس<span className="required-marker"> *</span>
+            شماره تماس<span className="font-bold text-red-500"> *</span>
           </span>
           <input
+            className={`${fieldClass} text-right`}
             {...register("phone")}
             placeholder="۰۹۱۲۳۴۵۶۷۸۹"
             dir="ltr"
@@ -147,14 +152,14 @@ export function ConsultationForm() {
             required
           />
           {errors.phone && (
-            <span className="form-error" role="alert">
+            <span className="text-[13px] text-destructive" role="alert">
               {errors.phone.message}
             </span>
           )}
         </label>
       </div>
 
-      <div className="form-row">
+      <div className="grid grid-cols-2 gap-4 max-[500px]:gap-3">
         <DatePickerInput
           key={"date"}
           required={true}
@@ -163,27 +168,28 @@ export function ConsultationForm() {
           control={control}
           name={"date"}
         />
-        <label>
+        <label className="flex flex-col gap-[9px] text-sm">
           <span>
-            بازه زمانی مناسب<span className="required-marker"> *</span>
+            بازه زمانی مناسب<span className="font-bold text-red-500"> *</span>
           </span>
-          <select {...register("slot")}>
+          <select className={fieldClass} {...register("slot")}>
             <option value="09:00-12:00">۹ تا ۱۲</option>
             <option value="12:00-15:00">۱۲ تا ۱۵</option>
             <option value="15:00-18:00">۱۵ تا ۱۸</option>
           </select>
           {errors.slot && (
-            <span className="form-error" role="alert">
+            <span className="text-[13px] text-destructive" role="alert">
               {errors.slot.message}
             </span>
           )}
         </label>
       </div>
-      <label>
+      <label className="flex flex-col gap-[9px] text-sm">
         <span>
-          کمی از ایده‌تان بگویید<span className="required-marker"> *</span>
+          کمی از ایده‌تان بگویید<span className="font-bold text-red-500"> *</span>
         </span>
         <textarea
+          className={`${fieldClass} min-h-[104px] resize-y`}
           {...register("description")}
           rows={4}
           maxLength={2000}
@@ -191,22 +197,22 @@ export function ConsultationForm() {
           required
         />
         {errors.description && (
-          <span className="form-error" role="alert">
+          <span className="text-[13px] text-destructive" role="alert">
             {errors.description.message}
           </span>
         )}
       </label>
       {errors.root?.server && (
-        <p className="form-error" role="alert">
+        <p className="text-[13px] text-destructive" role="alert">
           {errors.root.server.message}
         </p>
       )}
-      <div className="form-submit">
-        <Button disabled={isPending} type="submit" size="lg">
+      <div className="flex items-center gap-[18px] max-[500px]:flex-wrap max-[500px]:gap-3">
+        <Button disabled={isPending} type="submit" size="lg" className="h-[43px] px-[19px] text-sm">
           {isPending ? <LoaderCircle className="animate-spin" /> : <ArrowUpLeft />}
           {isPending ? "در حال ثبت..." : "ارسال درخواست مشاوره"}
         </Button>
-        <span>
+        <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <ShieldCheck size={15} />
           اطلاعات شما نزد ما محفوظ است.
         </span>

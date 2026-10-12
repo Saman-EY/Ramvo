@@ -23,17 +23,22 @@ function BrandIcon({ children }: { children: React.ReactNode }) {
 
 export function Brand() {
   return (
-    <Link href="/" className="brand" aria-label="رموو، صفحه اصلی">
-      <span className="logo-crop">
-        <Image src="/images/ramvo-logo.jpg" alt="لوگوی رموو" width={110} height={110} />
-        sdwd
+    <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="رموو، صفحه اصلی">
+      <span className="relative block h-[57px] w-[43px] shrink-0 overflow-hidden">
+        <Image
+          src="/images/ramvo-logo.jpg"
+          alt="لوگوی رموو"
+          width={110}
+          height={110}
+          className="absolute -top-6 -left-8 h-[110px] max-w-none"
+        />
       </span>
-      <span>
-        <b dir="ltr">
+      <span className="flex flex-col">
+        <b className="font-[Arial,sans-serif] text-[32px] leading-none font-bold max-[500px]:text-[28px]" dir="ltr">
           Ramvo
           {/* <span className="text-primary">.</span> */}
         </b>
-        <small>مهندسی ایده‌های شما</small>
+        <small className="mt-2 text-xs text-muted-foreground max-[500px]:text-[11px]">مهندسی ایده‌های شما</small>
       </span>
     </Link>
   );
@@ -41,19 +46,19 @@ export function Brand() {
 
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="container">
-        <div className="footer-main">
+    <footer className="border-t border-border pt-12">
+      <div className="mx-auto w-[calc(100%-36px)] max-w-[1320px] min-[501px]:w-[calc(100%-64px)] min-[1101px]:w-[calc(100%-112px)]">
+        <div className="grid grid-cols-[1.4fr_1fr_1.2fr] gap-20 pb-9 max-[1100px]:gap-10 max-[800px]:grid-cols-2 max-[800px]:gap-9 max-[800px]:[&>div:first-child]:col-span-full max-[500px]:gap-x-5 max-[500px]:gap-y-8">
           <div>
             <Brand />
-            <p>
+            <p className="mt-[18px] text-sm leading-8 text-muted-foreground">
               از اولین خط کد تا یک تجربه ماندگار.
               <br />
               همراه شما برای ساختن چیزی متفاوت.
             </p>
           </div>
-          <div className="footer-links">
-            <h3>مسیرهای رموو</h3>
+          <div className="flex flex-col items-start gap-3 text-sm text-muted-foreground">
+            <h3 className="mb-1 text-base font-semibold text-foreground">مسیرهای رموو</h3>
 
             <Link href="/">صفحه اصلی</Link>
             <Link href="/projects">پروژه‌ها</Link>
@@ -63,13 +68,13 @@ export function Footer() {
             </Link>
           </div>
           <div>
-            <h3>یک ایده خوب، یک شروع تازه</h3>
+            <h3 className="mb-5 text-base font-semibold">یک ایده خوب، یک شروع تازه</h3>
             <Button variant="outline" asChild>
               <Link href="/contact">
                 درباره ایده‌تان صحبت کنیم <ArrowUpLeft />
               </Link>
             </Button>
-            <div className="social-links">
+            <div className="mt-[15px] flex gap-2">
               {[
                 {
                   name: "گیت‌هاب",
@@ -100,9 +105,9 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="footer-bottom">
+        <div className="flex justify-between gap-4 border-t border-border py-5 text-xs text-muted-foreground max-[800px]:flex-col">
           <span>© {new Intl.NumberFormat("fa").format(2026)} رموو. تمامی حقوق محفوظ است.</span>
-          <span dir="ltr">Built with care. Engineered by Ramvo.</span>
+          <span className="font-mono text-[11px]" dir="ltr">Built with care. Engineered by Ramvo.</span>
         </div>
       </div>
     </footer>
@@ -111,13 +116,13 @@ export function Footer() {
 
 export function SectionTitle({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
-    <div className="section-title">
-      <span className="eyebrow">
-        <i />
+    <div>
+      <span className="flex items-center gap-2 text-xs text-primary">
+        <i className="size-[5px] rounded-full bg-primary" />
         {eyebrow}
       </span>
-      <h2>{title}</h2>
-      {description && <p>{description}</p>}
+      <h2 className="mt-[9px] text-[29px] leading-[1.8] font-extrabold max-[800px]:text-[26px] max-[500px]:text-[23px]">{title}</h2>
+      {description && <p className="mt-2 text-sm leading-[2.1] text-muted-foreground">{description}</p>}
     </div>
   );
 }
