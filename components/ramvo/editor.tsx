@@ -1,7 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Play, Check, Terminal, CodeXml, Atom, Boxes, Container, Braces, FileCode } from "lucide-react";
+import {
+  Play,
+  Check,
+  Terminal,
+  CodeXml,
+  Atom,
+  Boxes,
+  Container,
+  Braces,
+  FileCode,
+  Database,
+  Server,
+  Layers3,
+  Leaf,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const techs = [
@@ -11,6 +25,19 @@ const techs = [
   { name: "Node.js", icon: Boxes, cls: "node" },
   { name: "Python", icon: Braces, cls: "python" },
   { name: "Docker", icon: Container, cls: "docker" },
+];
+
+const marqueeTechs = [
+  { name: "React", icon: Atom, cls: "react" },
+  { name: "Next.js", icon: CodeXml, cls: "next" },
+  { name: "TypeScript", icon: FileCode, cls: "typescript" },
+  { name: "Node.js", icon: Boxes, cls: "node" },
+  { name: "Python", icon: Braces, cls: "python" },
+  { name: "Django", icon: Leaf, cls: "django" },
+  { name: "Docker", icon: Container, cls: "docker" },
+  { name: "PostgreSQL", icon: Database, cls: "postgres" },
+  { name: "Express.js", icon: Server, cls: "express" },
+  { name: "Nest.js", icon: Layers3, cls: "nestjs" },
 ];
 
 export function Editor() {
@@ -206,21 +233,12 @@ export function Marquee() {
       <div className="marquee-track">
         {[0, 1].map((n) => (
           <div className="marquee-group" key={n} aria-hidden={n === 1}>
-            {[
-              "React",
-              "Next.js",
-              "TypeScript",
-              "Node.js",
-              "Python",
-              "Django",
-              "Docker",
-              "PostgreSQL",
-              "Express.js",
-              "Nest.js",
-            ].map((name) => (
-              <span key={name}>
-                <CodeXml size={23} />
-                {name}
+            {marqueeTechs.map(({ name, icon: Icon, cls }) => (
+              <span className={`marquee-tech ${cls}`} key={name}>
+                <span className="marquee-tech-icon">
+                  <Icon size={19} strokeWidth={2.2} aria-hidden="true" />
+                </span>
+                <b>{name}</b>
                 <i>✦</i>
               </span>
             ))}

@@ -144,7 +144,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-vazirmatn), sans-serif;
     @apply bg-background text-foreground;
   }
   button:not(:disabled), [role="button"]:not(:disabled) {
@@ -615,46 +615,46 @@ a {
 .floating-tech svg {
   color: var(--leaf);
 }
-.react {
+.floating-tech.react {
   top: 11px;
   left: 4px;
   transform: rotate(-8deg);
 }
-.react svg {
+.floating-tech.react svg {
   color: var(--code-blue);
 }
-.next {
+.floating-tech.next {
   top: 49px;
   right: -17px;
   animation-delay: -1s;
 }
-.typescript {
+.floating-tech.typescript {
   right: -21px;
   top: 211px;
   animation-delay: -2s;
 }
-.typescript svg {
+.floating-tech.typescript svg {
   color: var(--code-blue);
 }
-.node {
+.floating-tech.node {
   left: -34px;
   top: 171px;
   animation-delay: -3s;
 }
-.python {
+.floating-tech.python {
   left: 9px;
   bottom: 9px;
   animation-delay: -4s;
 }
-.python svg {
+.floating-tech.python svg {
   color: var(--primary);
 }
-.docker {
+.floating-tech.docker {
   right: 10px;
   bottom: 6px;
   animation-delay: -2s;
 }
-.docker svg {
+.floating-tech.docker svg {
   color: var(--code-blue);
 }
 .build-badge {
@@ -722,11 +722,48 @@ a {
 .marquee-group svg {
   opacity: 0.6;
 }
-.marquee-group i {
+.marquee-tech-icon svg {
+  opacity: 1;
+}
+.marquee-tech {
+  gap: 10px;
+}
+.marquee-tech-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border: 1px solid color-mix(in oklch, currentColor 24%, transparent);
+  border-radius: 11px;
+  background: color-mix(in oklch, currentColor 10%, var(--card));
+  color: var(--tech-color, var(--primary));
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+.marquee-tech:hover .marquee-tech-icon {
+  transform: translateY(-3px) rotate(-6deg);
+  background: color-mix(in oklch, var(--tech-color, var(--primary)) 17%, var(--card));
+}
+.marquee-tech.react { --tech-color: #61dafb; }
+.marquee-tech.next { --tech-color: #f4f4f5; }
+.marquee-tech.typescript { --tech-color: #3178c6; }
+.marquee-tech.node { --tech-color: #83cd29; }
+.marquee-tech.python { --tech-color: #ffd343; }
+.marquee-tech.django { --tech-color: #44b78b; }
+.marquee-tech.docker { --tech-color: #2496ed; }
+.marquee-tech.postgres { --tech-color: #699eca; }
+.marquee-tech.express { --tech-color: #d4d4d8; }
+.marquee-tech.nestjs { --tech-color: #e0234e; }
+.marquee-tech > i {
   color: var(--primary);
   font-style: normal;
   font-size: 10px;
-  padding-left: 34px;
+  padding-left: 0;
+  margin-left: 4px;
 }
 .section {
   padding: 77px 0;
@@ -1314,6 +1351,7 @@ a {
   color: var(--muted-foreground);
   margin-top: 14px;
 }
+
 @keyframes float {
   0%,
   100% {
@@ -1374,13 +1412,13 @@ a {
     font-size: 9px;
     padding: 8px;
   }
-  .node {
+  .floating-tech.node {
     left: -10px;
   }
-  .typescript {
+  .floating-tech.typescript {
     right: -10px;
   }
-  .next {
+  .floating-tech.next {
     right: -10px;
   }
   .build-badge {
@@ -1594,27 +1632,27 @@ a {
   .floating-tech svg {
     width: 15px;
   }
-  .react {
+  .floating-tech.react {
     top: 0;
     left: 3px;
   }
-  .next {
+  .floating-tech.next {
     right: 0;
     top: 41px;
   }
-  .node {
+  .floating-tech.node {
     left: -7px;
     top: 163px;
   }
-  .typescript {
+  .floating-tech.typescript {
     right: -7px;
     top: 207px;
   }
-  .python {
+  .floating-tech.python {
     bottom: 7px;
     left: 0;
   }
-  .docker {
+  .floating-tech.docker {
     bottom: 9px;
     right: 0;
   }
@@ -1883,4 +1921,63 @@ a {
   margin-top: 2rem;
   color: var(--muted-foreground);
   font-size: 0.9rem;
+}
+
+/* Readable type scale for site content; tiny editor labels stay intentionally decorative. */
+.brand small,
+.availability,
+.hero-kicker,
+.hero-reassurance,
+.hero-bottom,
+.eyebrow,
+.project-category,
+.project-filters,
+.filter-tabs button,
+.result-count,
+.contact-note p,
+.form-submit > span,
+.footer-bottom {
+  font-size: 12px;
+}
+.desktop-nav,
+.header-cta,
+.hero-buttons button,
+.hero-buttons a,
+.section-title p,
+.about-inner p,
+.consultation-points,
+.contact-info-row p,
+.footer-main p,
+.footer-links,
+.footer-main > div:last-child > a,
+.stack-select,
+.stack-select select,
+.stat > span,
+.consultation-form label,
+.consultation-date-field > span:first-child,
+.consultation-form input,
+.consultation-form select,
+.consultation-form textarea,
+.consultation-date-field .rmdp-input,
+.form-submit button,
+.filter-tabs button {
+  font-size: 14px;
+}
+.hero-copy > p,
+.service-card p,
+.project-info p,
+.form-success p {
+  font-size: 15px;
+}
+.service-card h3,
+.footer-main h3,
+.contact-info-row h3 {
+  font-size: 16px;
+}
+.form-error,
+.consultation-date-field .form-error {
+  font-size: 13px;
+}
+.footer-bottom span:last-child {
+  font: 11px var(--font-mono);
 }
