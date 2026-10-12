@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Control, Controller, type FieldPath, type FieldValues } from "react-hook-form";
 import DateObject from "react-date-object";
 import persian from "react-date-object/calendars/persian";
@@ -23,6 +24,12 @@ function DatePickerInput<
   TName extends FieldPath<TFieldValues>,
   TTransformedValues extends FieldValues = TFieldValues,
 >({ control, name, label, required, containerClass }: DatePickerInputProps<TFieldValues, TName, TTransformedValues>) {
+  const [minDate, setMinDate] = useState<DateObject | null>(null);
+
+  useEffect(() => {
+    setMinDate(new DateObject({ calendar: persian }).setHour(0).setMinute(0).setSecond(0));
+  }, []);
+
   return (
     <Controller<TFieldValues, TName, TTransformedValues>
       control={control}
@@ -44,7 +51,7 @@ function DatePickerInput<
             format="YYYY/MM/DD"
             calendar={persian}
             locale={persian_fa}
-            minDate={new DateObject({ calendar: persian }).setHour(0).setMinute(0).setSecond(0)}
+            minDate={minDate ?? undefined}
             editable={false}
             // locale={persian_fa}
             calendarPosition="bottom-right"
