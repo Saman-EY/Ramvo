@@ -44,7 +44,7 @@ export function ProjectsArchive() {
         </label>
       </div> */}
       {/* <div className="my-[23px] text-sm text-muted-foreground">{new Intl.NumberFormat("fa").format(items.length)} پروژه</div> */}
-      {items.length && <ProjectGrid key={`${category}-${stack}`} items={items} />}
+      {items.length > 0 && <ProjectGrid key={`${category}-${stack}`} items={items} layout="grid" />}
     </main>
   );
 }

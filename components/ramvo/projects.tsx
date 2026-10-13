@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpLeft, ChevronLeft, ChevronRight, Expand, ExternalLink, Minimize } from "lucide-react";
+import { ChevronLeft, ChevronRight, Expand, ExternalLink, Minimize } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
@@ -12,7 +13,12 @@ export const projects = [
     title: "وردان؛ پلتفرم مدیریت سرمایه",
     category: "وب‌اپلیکیشن",
     image: "/images/project-finance.svg",
-    gallery: ["/images/project-finance.svg"],
+    gallery: [
+      "/images/project-finance.svg",
+      "/images/project-finance.svg",
+      "/images/project-finance.svg",
+      "/images/project-finance.svg",
+    ],
     url: "https://google.com",
     tags: ["React", "TypeScript", "Node.js"],
     description: "یک تجربه یکپارچه برای تحلیل داده‌های مالی، مدیریت دارایی و تصمیم‌گیری هوشمند.",
@@ -51,20 +57,11 @@ export const projects = [
 
 type Project = (typeof projects)[number];
 
-export function ProjectGrid({ items = projects }: { items?: Project[] }) {
+export function ProjectGrid({ items = projects, layout = "slider" }: { items?: Project[]; layout?: "slider" | "grid" }) {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [slideIndex, setSlideIndex] = useState(0);
   // const [selected, setSelected] = useState<Project | null>(null);
-  const [selected, setSelected] = useState<Project | null>({
-    id: 1,
-    title: "وردان؛ پلتفرم مدیریت سرمایه",
-    category: "وب‌اپلیکیشن",
-    image: "/images/project-finance.svg",
-    gallery: ["/images/project-finance.svg"],
-    url: "null",
-    tags: ["React", "TypeScript", "Node.js"],
-    description: "یک تجربه یکپارچه برای تحلیل داده‌های مالی، مدیریت دارایی و تصمیم‌گیری هوشمند.",
-  });
+  const [selected, setSelected] = useState<Project | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
   const activeIndex = Math.min(slideIndex, Math.max(0, items.length - 1));
@@ -91,42 +88,48 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-end">
-        <div className="flex gap-2" dir="ltr">
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label="پروژه قبلی"
-            disabled={activeIndex === 0}
-            onClick={() => goToSlide(activeIndex - 1)}
-          >
-            <ChevronLeft />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label="پروژه بعدی"
-            disabled={activeIndex >= items.length - 1}
-            onClick={() => goToSlide(activeIndex + 1)}
-          >
-            <ChevronRight />
-          </Button>
+      {layout === "slider" && (
+        <div className="mb-4 flex items-center justify-end">
+          <div className="flex gap-2" dir="ltr">
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="پروژه قبلی"
+              disabled={activeIndex === 0}
+              onClick={() => goToSlide(activeIndex - 1)}
+            >
+              <ChevronLeft />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="پروژه بعدی"
+              disabled={activeIndex >= items.length - 1}
+              onClick={() => goToSlide(activeIndex + 1)}
+            >
+              <ChevronRight />
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
       <div
         ref={sliderRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-[800px]:gap-4"
-        role="region"
-        aria-label="پروژه‌های رموو"
-        aria-roledescription="اسلایدر"
+        className={
+          layout === "slider"
+            ? "flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-[800px]:gap-4"
+            : "grid grid-cols-1 gap-6 min-[801px]:grid-cols-2"
+        }
+        role={layout === "slider" ? "region" : undefined}
+        aria-label={layout === "slider" ? "پروژه‌های رموو" : undefined}
+        aria-roledescription={layout === "slider" ? "اسلایدر" : undefined}
       >
         {items.map((p, index) => (
           <article
             key={p.id}
-            className="w-[calc((100%-24px)/2)] shrink-0 snap-start overflow-hidden rounded-lg border border-border bg-card shadow-[0_14px_45px_oklch(0.055_0.02_255_/_20%)] transition-colors hover:border-primary/50 max-[800px]:w-[88%]"
-            role="group"
-            aria-roledescription="اسلاید"
-            aria-label={`پروژه ${index + 1} از ${items.length}`}
+            className={`${layout === "slider" ? "w-[calc((100%-24px)/2)] shrink-0 snap-start max-[800px]:w-[88%]" : "w-full"} overflow-hidden rounded-lg border border-border bg-card shadow-[0_14px_45px_oklch(0.055_0.02_255_/_20%)] transition-colors hover:border-primary/50`}
+            role={layout === "slider" ? "group" : undefined}
+            aria-roledescription={layout === "slider" ? "اسلاید" : undefined}
+            aria-label={layout === "slider" ? `پروژه ${index + 1} از ${items.length}` : undefined}
           >
             <div
               className={`relative aspect-[1.65] overflow-hidden p-[25px_25px_0] max-[800px]:p-[20px_20px_0] ${p.id % 2 === 0 ? "bg-[color-mix(in_oklch,var(--primary)_10%,var(--card))]" : "bg-[color-mix(in_oklch,var(--leaf)_10%,var(--card))]"}`}
@@ -148,8 +151,8 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
               <h3 className="text-base font-bold">{p.title}</h3>
               <p className="mt-2 line-clamp-1 text-sm leading-7 text-muted-foreground">{p.description}</p>
               <div className="mt-4 flex flex-wrap justify-end gap-2" dir="ltr">
-                {p.tags.map((tag) => (
-                  <span key={tag} className="rounded border border-border px-2 py-1 font-mono text-xs text-muted-foreground">
+                {p.tags.map((tag, idx) => (
+                  <span key={idx} className="rounded border border-border px-2 py-1 font-mono text-xs text-muted-foreground">
                     {tag}
                   </span>
                 ))}
@@ -178,7 +181,7 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
         }}
       >
         <DialogContent
-          className={`max-h-[92dvh] overflow-y-auto ${fullscreen ? "h-[92dvh] max-w-[96vw] p-3 sm:max-w-[96vw]" : "max-w-[850px]"}`}
+          className={`max-h-[92dvh] w-full overflow-y-auto ${fullscreen ? "h-[92dvh] max-w-[96vw] p-3 sm:max-w-[96vw]" : "max-w-[850px] sm:max-w-[1000px]"}`}
           dir="rtl"
         >
           {selected &&
@@ -200,7 +203,7 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
                 />
               </div>
             ) : (
-              <div className="py-5">
+              <div className="pt-5">
                 <div className="grid gap-3">
                   <div className="relative flex aspect-[1.45] items-center justify-center overflow-hidden rounded-lg border border-border bg-background/60 p-3">
                     <Image
@@ -220,7 +223,7 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
                     >
                       <Expand />
                     </Button>
-                    {galleryImages.length > 1 && (
+                    {/* {galleryImages.length > 1 && (
                       <div className="absolute inset-x-3 bottom-3 flex justify-between" dir="ltr">
                         <Button
                           variant="secondary"
@@ -241,13 +244,13 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
                           <ChevronRight />
                         </Button>
                       </div>
-                    )}
+                    )} */}
                   </div>
                   {galleryImages.length > 1 && (
                     <div className="flex gap-2 overflow-x-auto" aria-label="تصاویر بیشتر پروژه">
                       {galleryImages.map((image, index) => (
                         <button
-                          key={image}
+                          key={index}
                           type="button"
                           className={`size-[68px] shrink-0 overflow-hidden rounded border ${galleryIndex === index ? "border-primary" : "border-border"}`}
                           aria-label={`نمایش تصویر ${index + 1}`}
@@ -260,7 +263,7 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col mt-3 gap-4">
                   <div>
                     <DialogTitle className="text-lg font-bold leading-8">{selected.title}</DialogTitle>
                     <span className="mt-2 inline-flex rounded border border-border px-2.5 py-1 text-xs text-muted-foreground">
@@ -284,11 +287,11 @@ export function ProjectGrid({ items = projects }: { items?: Project[] }) {
                     </div>
                   </div>
                   {selected.url && (
-                    <a href={selected.url} target="_blank" rel="noreferrer">
-                      <Button asChild className="mt-auto self-start w-full">
+                    <Button asChild className="mt-auto self-start w-full min-h-10 text-base">
+                      <Link href={selected.url} target="_blank" rel="noreferrer">
                         مشاهده وب‌سایت <ExternalLink />
-                      </Button>
-                    </a>
+                      </Link>
+                    </Button>
                   )}
                 </div>
               </div>

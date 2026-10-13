@@ -25,9 +25,12 @@ function DatePickerInput<
   TTransformedValues extends FieldValues = TFieldValues,
 >({ control, name, label, required, containerClass }: DatePickerInputProps<TFieldValues, TName, TTransformedValues>) {
   const [minDate, setMinDate] = useState<DateObject | null>(null);
+  const [maxDate, setMaxDate] = useState<DateObject | null>(null);
 
   useEffect(() => {
-    setMinDate(new DateObject({ calendar: persian }).setHour(0).setMinute(0).setSecond(0));
+    const today = new DateObject({ calendar: persian }).setHour(0).setMinute(0).setSecond(0);
+    setMinDate(today);
+    setMaxDate(new DateObject(today).add(7, "days"));
   }, []);
 
   return (
@@ -52,6 +55,7 @@ function DatePickerInput<
             calendar={persian}
             locale={persian_fa}
             minDate={minDate ?? undefined}
+            maxDate={maxDate ?? undefined}
             editable={false}
             // locale={persian_fa}
             calendarPosition="bottom-right"
