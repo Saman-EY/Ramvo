@@ -138,7 +138,7 @@
 @layer base {
   * {
     border-color: var(--color-border);
-    scrollbar-color: var(--color-primary-foreground) transparent;
+    scrollbar-color: var(--color-primary) transparent;
     scrollbar-width: thin;
 
     @apply border-border outline-ring/50;
