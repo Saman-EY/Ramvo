@@ -57,7 +57,10 @@ export function Editor() {
   const [tab, setTab] = useState("website.tsx");
   const [run, setRun] = useState(false);
   return (
-    <div className="relative flex h-[435px] min-w-0 items-center justify-center min-[1450px]:h-[455px] max-[800px]:mx-auto max-[800px]:h-[435px] max-[800px]:w-full max-[800px]:max-w-[560px] max-[500px]:h-[403px]" dir="ltr">
+    <div
+      className="relative flex h-[435px] min-w-0 items-center justify-center min-[1450px]:h-[455px] max-[800px]:mx-auto max-[800px]:h-[435px] max-[800px]:w-full max-[800px]:max-w-[560px] max-[500px]:h-[403px]"
+      dir="ltr"
+    >
       <div className="absolute inset-[10px_-20px] rotate-[-20deg] rounded-[50%] border border-leaf/10 after:absolute after:inset-[25px] after:rounded-[50%] after:border after:border-dashed after:border-leaf/10 after:content-['']" />
       <div className="relative w-[94%] overflow-hidden rounded-lg border border-border bg-card/95 shadow-[var(--card-glow)] max-[500px]:w-[93%]">
         <div className="flex h-[38px] items-center justify-between border-b border-border px-[14px] font-mono text-[8px] text-muted-foreground">
@@ -96,7 +99,8 @@ export function Editor() {
               <div>
                 <em>02</em>
                 <span>
-                  <span className="text-[var(--code-violet)]">import</span> {"{"} <span className="text-foreground">createExperience</span> {"}"}{" "}
+                  <span className="text-[var(--code-violet)]">import</span> {"{"}{" "}
+                  <span className="text-foreground">createExperience</span> {"}"}{" "}
                   <span className="text-[var(--code-violet)]">from</span> <span className="text-leaf">&apos;ramvo&apos;</span>;
                 </span>
               </div>
@@ -106,7 +110,8 @@ export function Editor() {
               <div>
                 <em>04</em>
                 <span>
-                  <span className="text-[var(--code-violet)]">const</span> project = <span className="text-gold">createExperience</span>({"{"}
+                  <span className="text-[var(--code-violet)]">const</span> project ={" "}
+                  <span className="text-gold">createExperience</span>({"{"}
                 </span>
               </div>
               <div>
@@ -148,7 +153,8 @@ export function Editor() {
               <div>
                 <em>11</em>
                 <span>
-                  <span className="text-[var(--code-violet)]">export default</span> project.<span className="text-gold">launch</span>();
+                  <span className="text-[var(--code-violet)]">export default</span> project.
+                  <span className="text-gold">launch</span>();
                   <span className="animate-[blink_1.2s_step-end_infinite] text-primary">▎</span>
                 </span>
               </div>
@@ -206,7 +212,8 @@ export function Editor() {
               </>
             ) : (
               <>
-                <span className="text-leaf">➜</span> ramvo <span className="text-muted-foreground opacity-65">npm run build:your-vision</span>
+                <span className="text-leaf">➜</span> ramvo{" "}
+                <span className="text-muted-foreground opacity-65">npm run build:your-vision</span>
               </>
             )}
           </p>
@@ -221,7 +228,10 @@ export function Editor() {
         </div>
       </div>
       {techs.map(({ name, icon: Icon }) => (
-        <div key={name} className={`absolute z-[2] flex items-center gap-[7px] rounded-[7px] border border-border bg-card px-3 py-[10px] font-[Arial,sans-serif] text-[11px] shadow-[var(--card-glow)] animate-[float_6s_ease-in-out_infinite] max-[1100px]:px-2 max-[1100px]:py-2 max-[1100px]:text-[9px] max-[500px]:gap-1 max-[500px]:px-2 max-[500px]:py-[7px] max-[500px]:text-[8px] [&_svg]:text-leaf max-[500px]:[&_svg]:w-[15px] ${name === "React" ? "top-[11px] left-1 rotate-[-8deg] max-[500px]:top-0 max-[500px]:left-[3px] [&_svg]:text-[var(--code-blue)]" : name === "Next.js" ? "top-[49px] right-[-17px] [animation-delay:-1s] max-[1100px]:right-[-10px] max-[500px]:top-[41px] max-[500px]:right-0" : name === "TypeScript" ? "top-[211px] right-[-21px] [animation-delay:-2s] max-[1100px]:right-[-10px] max-[500px]:top-[207px] max-[500px]:right-[-7px] [&_svg]:text-[var(--code-blue)]" : name === "Node.js" ? "top-[171px] left-[-34px] [animation-delay:-3s] max-[1100px]:left-[-10px] max-[500px]:top-[163px] max-[500px]:left-[-7px]" : name === "Python" ? "bottom-[9px] left-[9px] [animation-delay:-4s] max-[500px]:bottom-[7px] max-[500px]:left-0 [&_svg]:text-primary" : "right-[10px] bottom-[6px] [animation-delay:-2s] max-[500px]:right-0 max-[500px]:bottom-[9px] [&_svg]:text-[var(--code-blue)]"}`}>
+        <div
+          key={name}
+          className={`absolute z-[2] flex items-center gap-[7px] rounded-[7px] border border-border bg-card px-3 py-[10px] font-[Arial,sans-serif] text-[11px] shadow-[var(--card-glow)] animate-[float_6s_ease-in-out_infinite] max-[1100px]:px-2 max-[1100px]:py-2 max-[1100px]:text-[9px] max-[500px]:gap-1 max-[500px]:px-2 max-[500px]:py-[7px] max-[500px]:text-[8px] [&_svg]:text-leaf max-[500px]:[&_svg]:w-[15px] ${name === "React" ? "top-[11px] left-1 rotate-[-8deg] max-[500px]:top-0 max-[500px]:left-[3px] [&_svg]:text-[var(--code-blue)]" : name === "Next.js" ? "top-[49px] right-[-17px] [animation-delay:-1s] max-[1100px]:right-[-10px] max-[500px]:top-[41px] max-[500px]:right-0" : name === "TypeScript" ? "top-[211px] right-[-21px] [animation-delay:-2s] max-[1100px]:right-[-10px] max-[500px]:top-[207px] max-[500px]:right-[-7px] [&_svg]:text-[var(--code-blue)]" : name === "Node.js" ? "top-[171px] left-[-34px] [animation-delay:-3s] max-[1100px]:left-[-10px] max-[500px]:top-[163px] max-[500px]:left-[-7px]" : name === "Python" ? "bottom-[9px] left-[9px] [animation-delay:-4s] max-[500px]:bottom-[7px] max-[500px]:left-0 [&_svg]:text-primary" : "right-[10px] bottom-[6px] [animation-delay:-2s] max-[500px]:right-0 max-[500px]:bottom-[9px] [&_svg]:text-[var(--code-blue)]"}`}
+        >
           <Icon size={19} style={{ color: marqueeColors[name] }} />
           <b>{name}</b>
         </div>
@@ -242,19 +252,31 @@ export function Editor() {
 
 export function Marquee() {
   return (
-    <div className="flex h-20 items-center overflow-hidden border-y border-border bg-card/65 [mask-image:linear-gradient(to_right,transparent,var(--foreground)_8%,var(--foreground)_92%,transparent)] max-[500px]:h-16" dir="ltr">
+    <div
+      className="flex h-20 items-center overflow-hidden border-y border-border bg-card/65 [mask-image:linear-gradient(to_right,transparent,var(--foreground)_8%,var(--foreground)_92%,transparent)] max-[500px]:h-16"
+      dir="ltr"
+    >
       <div className="flex w-max animate-[marquee_36s_linear_infinite]">
         {[0, 1].map((n) => (
-          <div className="flex shrink-0 gap-[50px] pr-[50px] [&>span]:flex [&>span]:items-center [&>span]:gap-2.5 [&>span]:font-[Arial,sans-serif] [&>span]:text-base [&>span]:text-muted-foreground max-[500px]:[&>span]:text-sm" key={n} aria-hidden={n === 1}>
+          <div
+            className="flex shrink-0 gap-[50px] pr-[50px] [&>span]:flex [&>span]:items-center [&>span]:gap-2.5 [&>span]:font-[Arial,sans-serif] [&>span]:text-base [&>span]:text-muted-foreground max-[500px]:[&>span]:text-sm"
+            key={n}
+            aria-hidden={n === 1}
+          >
             {marqueeTechs.map(({ name, icon: Icon }) => {
               const color = marqueeColors[name];
-              return <span className="gap-[10px]" key={name}>
-                <span className="grid size-[34px] shrink-0 place-items-center rounded-[11px] border border-current/25 bg-current/10 font-mono text-xs font-extrabold tracking-[-0.06em] transition-transform duration-300 hover:-translate-y-[3px] hover:-rotate-6 [&_svg]:opacity-100" style={{ color }}>
-                  <Icon size={19} strokeWidth={2.2} aria-hidden="true" />
+              return (
+                <span className="gap-[10px]" key={name}>
+                  <span
+                    className="grid size-[34px] shrink-0 place-items-center rounded-[11px] border border-current/25 bg-current/10 font-mono text-xs font-extrabold tracking-[-0.06em] transition-transform duration-300 hover:-translate-y-[3px] hover:-rotate-6 [&_svg]:opacity-100"
+                    style={{ color }}
+                  >
+                    <Icon size={19} strokeWidth={2.2} aria-hidden="true" />
+                  </span>
+                  <b>{name}</b>
+                  <i className="ml-1 text-[10px] not-italic text-primary">✦</i>
                 </span>
-                <b>{name}</b>
-                <i className="ml-1 text-[10px] not-italic text-primary">✦</i>
-              </span>;
+              );
             })}
           </div>
         ))}

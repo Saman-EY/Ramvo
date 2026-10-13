@@ -19,7 +19,7 @@ export function ProjectsArchive() {
         title="ایده‌هایی که به تجربه تبدیل شدند."
         description="نمونه‌های نمایشی از طراحی، توسعه و مهندسی محصولات دیجیتال."
       />
-      <div className="mt-9 flex justify-between gap-5 border-y border-border py-5 max-[800px]:flex-col">
+      {/* <div className="mt-9 flex justify-between gap-5 border-y border-border py-5 max-[800px]:flex-col">
         <div className="flex flex-wrap gap-1">
           {["همه پروژه‌ها", "وب‌اپلیکیشن", "فروشگاه آنلاین", "بک‌اند و زیرساخت", "طراحی رابط کاربری"].map((c) => (
             <Button variant={category === c ? "default" : "ghost"} key={c} onClick={() => setCategory(c)}>
@@ -29,7 +29,12 @@ export function ProjectsArchive() {
         </div>
         <label className="flex min-w-40 items-center gap-2 text-sm text-muted-foreground">
           <SlidersHorizontal size={17} />
-          <select className="min-w-0 rounded border border-border bg-card p-2 text-foreground" aria-label="فیلتر فناوری" value={stack} onChange={(e) => setStack(e.target.value)}>
+          <select
+            className="min-w-0 rounded border border-border bg-card p-2 text-foreground"
+            aria-label="فیلتر فناوری"
+            value={stack}
+            onChange={(e) => setStack(e.target.value)}
+          >
             {["همه فناوری‌ها", "React", "Next.js", "TypeScript", "Node.js", "Python", "Docker", "PostgreSQL", "Figma"].map(
               (s) => (
                 <option key={s}>{s}</option>
@@ -37,25 +42,9 @@ export function ProjectsArchive() {
             )}
           </select>
         </label>
-      </div>
-      <div className="my-[23px] text-sm text-muted-foreground">{new Intl.NumberFormat("fa").format(items.length)} پروژه</div>
-      {items.length ? (
-        <ProjectGrid items={items} />
-      ) : (
-        <div className="py-[75px] text-center">
-          <h3>پروژه‌ای با این ترکیب پیدا نشد.</h3>
-          <Button
-            variant="outline"
-            className="mt-[22px]"
-            onClick={() => {
-              setCategory("همه پروژه‌ها");
-              setStack("همه فناوری‌ها");
-            }}
-          >
-            پاک کردن فیلترها
-          </Button>
-        </div>
-      )}
+      </div> */}
+      {/* <div className="my-[23px] text-sm text-muted-foreground">{new Intl.NumberFormat("fa").format(items.length)} پروژه</div> */}
+      {items.length && <ProjectGrid key={`${category}-${stack}`} items={items} />}
     </main>
   );
 }

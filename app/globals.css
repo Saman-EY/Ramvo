@@ -138,6 +138,7 @@
 @layer base {
   * {
     border-color: var(--color-border);
+
     @apply border-border outline-ring/50;
   }
 
@@ -147,7 +148,9 @@
     font-family: var(--font-vazirmatn), sans-serif;
     @apply bg-background text-foreground;
   }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   html {
@@ -187,7 +190,9 @@
   --code-violet: oklch(0.76 0.12 303);
   --code-blue: oklch(0.76 0.12 236);
   --code-red: oklch(0.65 0.16 25);
-  --hero-light: radial-gradient(ellipse at 18% 38%, oklch(0.34 0.075 159 / 19%), transparent 52%), radial-gradient(ellipse at 84% 4%, oklch(0.3 0.09 245 / 16%), transparent 38%);
+  --hero-light:
+    radial-gradient(ellipse at 18% 38%, oklch(0.34 0.075 159 / 19%), transparent 52%),
+    radial-gradient(ellipse at 84% 4%, oklch(0.3 0.09 245 / 16%), transparent 38%);
   --card-glow: 0 18px 70px oklch(0.055 0.025 255 / 42%);
 }
 /* react-multi-date-picker renders its popup outside the component tree. */
@@ -231,21 +236,34 @@
 }
 
 @keyframes float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -9px; }
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -9px;
+  }
 }
 
 @keyframes marquee {
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation: none !important;
     transition: none !important;
   }
