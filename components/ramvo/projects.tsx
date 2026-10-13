@@ -6,67 +6,17 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, ExternalLink, Minimize } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-
-export const projects = [
-  {
-    id: 1,
-    title: "وردان؛ پلتفرم مدیریت سرمایه",
-    category: "وب‌اپلیکیشن",
-    image: "/images/project-finance.svg",
-    gallery: [
-      "/images/project-finance.svg",
-      "/images/project-finance.svg",
-      "/images/project-finance.svg",
-      "/images/project-finance.svg",
-    ],
-    url: "https://google.com",
-    tags: ["React", "TypeScript", "Node.js"],
-    description: "یک تجربه یکپارچه برای تحلیل داده‌های مالی، مدیریت دارایی و تصمیم‌گیری هوشمند.",
-  },
-  {
-    id: 2,
-    title: "هاوسن؛ تجربه‌ای متفاوت از خرید",
-    category: "فروشگاه آنلاین",
-    image: "/images/project-store.svg",
-    gallery: ["/images/project-store.svg"],
-    url: null,
-    tags: ["Next.js", "TypeScript", "PostgreSQL"],
-    description: "فروشگاه مدرن محصولات خانه با تمرکز بر تجربه خرید، سرعت و طراحی مینیمال.",
-  },
-  {
-    id: 3,
-    title: "وردان؛ زیرساخت تحلیل داده",
-    category: "بک‌اند و زیرساخت",
-    image: "/images/project-finance.svg",
-    gallery: ["/images/project-finance.svg"],
-    url: null,
-    tags: ["Python", "Docker", "PostgreSQL"],
-    description: "معماری مقیاس‌پذیر برای پردازش داده‌ها، گزارش‌گیری و یکپارچه‌سازی سرویس‌ها.",
-  },
-  {
-    id: 4,
-    title: "هاوسن؛ طراحی تجربه دیجیتال",
-    category: "طراحی رابط کاربری",
-    image: "/images/project-store.svg",
-    gallery: ["/images/project-store.svg"],
-    url: null,
-    tags: ["Figma", "React"],
-    description: "طراحی سیستم بصری و تجربه کاربری منسجم برای یک برند فروشگاهی.",
-  },
-];
+import { projects } from "@/lib/variables";
 
 type Project = (typeof projects)[number];
 
 export function ProjectGrid({ items = projects, layout = "slider" }: { items?: Project[]; layout?: "slider" | "grid" }) {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [slideIndex, setSlideIndex] = useState(0);
-  // const [selected, setSelected] = useState<Project | null>(null);
   const [selected, setSelected] = useState<Project | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
   const activeIndex = Math.min(slideIndex, Math.max(0, items.length - 1));
-
-  console.log("*", selected);
 
   function goToSlide(index: number) {
     const nextIndex = Math.max(0, Math.min(index, items.length - 1));
@@ -83,7 +33,7 @@ export function ProjectGrid({ items = projects, layout = "slider" }: { items?: P
     setFullscreen(false);
   }
 
-  const galleryImages = selected?.gallery.slice(0, 4) ?? [];
+  const galleryImages = selected?.gallery ?? [];
   const selectedImage = galleryImages[Math.min(galleryIndex, galleryImages.length - 1)];
 
   return (

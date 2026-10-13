@@ -4,7 +4,8 @@ import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components/ramvo/site";
-import { ProjectGrid, projects } from "@/components/ramvo/projects";
+import { ProjectGrid } from "@/components/ramvo/projects";
+import { projects } from "@/lib/variables";
 
 export function ProjectsArchive() {
   const [category, setCategory] = useState("همه پروژه‌ها");
