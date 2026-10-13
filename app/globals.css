@@ -138,6 +138,8 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    scrollbar-color: var(--color-primary-foreground) transparent;
+    scrollbar-width: thin;
 
     @apply border-border outline-ring/50;
   }
@@ -156,6 +158,29 @@
   html {
     @apply font-sans;
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid var(--background);
+  border-radius: 999px;
+  background: var(--border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--background);
 }
 
 @theme inline {
