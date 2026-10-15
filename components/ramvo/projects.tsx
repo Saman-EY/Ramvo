@@ -4,6 +4,9 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, ExternalLink, Minimize } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react"; // NEW
+import type { Swiper as SwiperType } from "swiper"; // NEW
+import "swiper/css"; // NEW
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { projects } from "@/lib/variables";
@@ -11,20 +14,19 @@ import { projects } from "@/lib/variables";
 type Project = (typeof projects)[number];
 
 export function ProjectGrid({ items = projects, layout = "slider" }: { items?: Project[]; layout?: "slider" | "grid" }) {
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const swiperRef = useRef<SwiperType | null>(null); // CHANGED (was sliderRef)
   const [slideIndex, setSlideIndex] = useState(0);
   const [selected, setSelected] = useState<Project | null>(null);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
   const activeIndex = Math.min(slideIndex, Math.max(0, items.length - 1));
 
+  console.log("** active: ",activeIndex,"items: ", items.length)
+
+  // CHANGED
   function goToSlide(index: number) {
     const nextIndex = Math.max(0, Math.min(index, items.length - 1));
-    const slide = sliderRef.current?.children[nextIndex];
-    if (slide instanceof HTMLElement) {
-      setSlideIndex(nextIndex);
-      slide.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-    }
+    swiperRef.current?.slideTo(nextIndex);
   }
 
   function openProject(project: Project) {
@@ -36,6 +38,54 @@ export function ProjectGrid({ items = projects, layout = "slider" }: { items?: P
   const galleryImages = selected?.gallery ?? [];
   const selectedImage = galleryImages[Math.min(galleryIndex, galleryImages.length - 1)];
 
+  // NEW: card extracted so it can be reused by both Swiper and grid
+  const renderCard = (p: Project, index: number) => (
+    <article
+      key={p.id}
+      className="w-full overflow-hidden rounded-lg border border-border bg-card shadow-[0_14px_45px_oklch(0.055_0.02_255_/_20%)] transition-colors hover:border-primary/50" // CHANGED (width classes removed)
+      role={layout === "slider" ? "group" : undefined}
+      aria-roledescription={layout === "slider" ? "اسلاید" : undefined}
+      aria-label={layout === "slider" ? `پروژه ${index + 1} از ${items.length}` : undefined}
+    >
+      <div
+        className={`relative aspect-[1.65] overflow-hidden p-[25px_25px_0] max-[800px]:p-[20px_20px_0] ${p.id % 2 === 0 ? "bg-[color-mix(in_oklch,var(--primary)_10%,var(--card))]" : "bg-[color-mix(in_oklch,var(--leaf)_10%,var(--card))]"}`}
+      >
+        <Image
+          src={p.image}
+          alt={`تصویر اصلی ${p.title}`}
+          loading="lazy"
+          width={1536}
+          height={1024}
+          unoptimized
+          className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-top"
+        />
+        <span className="absolute top-[13px] right-[15px] rounded border border-border bg-background px-2.5 py-1.5 text-xs text-foreground">
+          {p.category}
+        </span>
+      </div>
+      <div className="p-5 px-[23px]">
+        <h3 className="text-base font-bold">{p.title}</h3>
+        <p className="mt-2 line-clamp-1 text-sm leading-7 text-muted-foreground">{p.description}</p>
+        <div className="mt-4 flex flex-wrap justify-end gap-2" dir="ltr">
+          {p.tags.map((tag, idx) => (
+            <span key={idx} className="rounded border border-border px-2 py-1 font-mono text-xs text-muted-foreground">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="mt-4 flex justify-start border-border pt-4">
+          <Button
+            className="w-full text-base rounded-lg min-h-4 text-primary"
+            variant="outline"
+            onClick={() => openProject(p)}
+          >
+            جزئیات پروژه
+          </Button>
+        </div>
+      </div>
+    </article>
+  );
+
   return (
     <>
       {layout === "slider" && (
@@ -44,82 +94,50 @@ export function ProjectGrid({ items = projects, layout = "slider" }: { items?: P
             <Button
               variant="outline"
               size="icon"
-              aria-label="پروژه قبلی"
-              disabled={activeIndex === 0}
-              onClick={() => goToSlide(activeIndex - 1)}
+              aria-label="پروژه بعدی"
+              // disabled={activeIndex >= items.length - 1}
+              onClick={() => goToSlide(activeIndex + 1)}
             >
               <ChevronLeft />
             </Button>
             <Button
               variant="outline"
               size="icon"
-              aria-label="پروژه بعدی"
-              disabled={activeIndex >= items.length - 1}
-              onClick={() => goToSlide(activeIndex + 1)}
+              aria-label="پروژه قبلی"
+              // disabled={activeIndex === 0}
+              onClick={() => goToSlide(activeIndex - 1)}
             >
               <ChevronRight />
             </Button>
           </div>
         </div>
       )}
-      <div
-        ref={sliderRef}
-        className={
-          layout === "slider"
-            ? "flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden max-[800px]:gap-4"
-            : "grid grid-cols-1 gap-6 min-[801px]:grid-cols-2"
-        }
-        role={layout === "slider" ? "region" : undefined}
-        aria-label={layout === "slider" ? "پروژه‌های رموو" : undefined}
-        aria-roledescription={layout === "slider" ? "اسلایدر" : undefined}
-      >
-        {items.map((p, index) => (
-          <article
-            key={p.id}
-            className={`${layout === "slider" ? "w-[calc((100%-24px)/2)] shrink-0 snap-start max-[800px]:w-[88%]" : "w-full"} overflow-hidden rounded-lg border border-border bg-card shadow-[0_14px_45px_oklch(0.055_0.02_255_/_20%)] transition-colors hover:border-primary/50`}
-            role={layout === "slider" ? "group" : undefined}
-            aria-roledescription={layout === "slider" ? "اسلاید" : undefined}
-            aria-label={layout === "slider" ? `پروژه ${index + 1} از ${items.length}` : undefined}
-          >
-            <div
-              className={`relative aspect-[1.65] overflow-hidden p-[25px_25px_0] max-[800px]:p-[20px_20px_0] ${p.id % 2 === 0 ? "bg-[color-mix(in_oklch,var(--primary)_10%,var(--card))]" : "bg-[color-mix(in_oklch,var(--leaf)_10%,var(--card))]"}`}
-            >
-              <Image
-                src={p.image}
-                alt={`تصویر اصلی ${p.title}`}
-                loading="lazy"
-                width={1536}
-                height={1024}
-                unoptimized
-                className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-top"
-              />
-              <span className="absolute top-[13px] right-[15px] rounded border border-border bg-background px-2.5 py-1.5 text-xs text-foreground">
-                {p.category}
-              </span>
-            </div>
-            <div className="p-5 px-[23px]">
-              <h3 className="text-base font-bold">{p.title}</h3>
-              <p className="mt-2 line-clamp-1 text-sm leading-7 text-muted-foreground">{p.description}</p>
-              <div className="mt-4 flex flex-wrap justify-end gap-2" dir="ltr">
-                {p.tags.map((tag, idx) => (
-                  <span key={idx} className="rounded border border-border px-2 py-1 font-mono text-xs text-muted-foreground">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-4 flex justify-start border-border pt-4">
-                <Button
-                  className="w-full text-base rounded-lg min-h-4 text-primary"
-                  variant="outline"
-                  onClick={() => openProject(p)}
-                >
-                  جزئیات پروژه
-                </Button>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+
+      {/* CHANGED: scroller div replaced with Swiper (slider) / plain grid */}
+      {layout === "slider" ? (
+        <Swiper
+          dir="rtl"
+          className="pb-3"
+          slidesPerView={1.14}
+          spaceBetween={16}
+          breakpoints={{ 801: { slidesPerView: 2, spaceBetween: 24 } }}
+          onSwiper={(s) => {
+            swiperRef.current = s;
+          }}
+          onSlideChange={(s) => setSlideIndex(s.activeIndex)}
+          role="region"
+          aria-label="پروژه‌های رموو"
+          aria-roledescription="اسلایدر"
+        >
+          {items.map((p, index) => (
+            <SwiperSlide key={p.id}>{renderCard(p, index)}</SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        <div className="grid grid-cols-1 gap-6 min-[801px]:grid-cols-2">
+          {items.map((p, index) => renderCard(p, index))}
+        </div>
+      )}
 
       <Dialog
         open={Boolean(selected)}
